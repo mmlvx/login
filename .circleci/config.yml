@@ -1,7 +1,22 @@
 version: 2
 jobs:
-  build:
+  test:
     docker:
       - image: cimg/node:lts
     steps:
-      - run: echo "hello world"
+      - run:
+          name: "今はどのブランチにいるか"
+          command: echo "branch is '$CIRCLE_BRANCH'"
+      - run:
+          name: "プロジェクト設定変数"
+          command: echo "this is '$EXAMPLE_VARIABLES'"
+      - run:
+          name: "コンテキスト設定変数"
+          command: echo "this is '$ALL_VARIABLES'"
+
+workflows:
+  version: 2
+  main:
+    jobs:
+      - test:
+          context: TEST_CONTEXT
